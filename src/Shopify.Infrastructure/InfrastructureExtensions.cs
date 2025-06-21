@@ -4,9 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Shopify.Application.Products.Services;
 using Shopify.Domain.Common.Interfaces;
 using Shopify.Infrastructure.Authentication;
+using Shopify.Infrastructure.Common.Constants;
 using Shopify.Infrastructure.Persistence.Database;
+using Shopify.Infrastructure.Products;
 
 namespace Shopify.Infrastructure;
 
@@ -52,6 +55,13 @@ public static class InfrastructureExtensions
 
     private static void AddServices(this IServiceCollection services)
     {
+        services.AddHttpClient(ApiConstants.ClientName, client =>
+        {
+            const string baseApiUri = "https://dummyjson.com";
+            client.BaseAddress = new Uri(baseApiUri);
+        });
+
+        services.AddScoped<IProductApiService, ProductApiService>();
     }
 
     private static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
