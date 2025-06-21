@@ -1,24 +1,26 @@
 ﻿using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopify.Application.Products.DTO;
-using Shopify.Application.Products.Services;
+using Shopify.Infrastructure.Persistence.Products.Queries.GetProducts;
 
 namespace Shopify.Web.Controllers;
 
 [Route("api/[controller]")]
 public sealed class ProductsController : ApiController
 {
-    private readonly IProductApiService productApiService;
+    private readonly ISender mediator;
 
-    public ProductsController(IProductApiService productApiService)
+    public ProductsController(ISender mediator)
     {
-        this.productApiService = productApiService;
+        this.mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetSettlements(int skip = 1, int limit = 10)
+    public async Task<IActionResult> GetSettlements(int skip = 0, int limit = 10)
     {
-        ErrorOr<ProductPagedDto?> result = await productApiService.GetProductsAsync(skip, limit);
+        GetProductsQuery query = new(skip, limit);
+        ErrorOr<ProductPagedDto?> result = await mediator.Send(query);
 
         return result.Match(Ok, Problem);
     }
