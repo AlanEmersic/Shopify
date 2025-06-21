@@ -1,0 +1,25 @@
+﻿namespace Shopify.Application.Products.DTO;
+
+public sealed record ProductDto(
+    int Id,
+    string Title,
+    string Description,
+    string Category,
+    string Brand,
+    string Sku,
+    decimal Price,
+    decimal? DiscountPercentage,
+    float Rating,
+    int Stock,
+    int MinimumOrderQuantity,
+    DimensionsDto Dimensions,
+    int Weight,
+    string? WarrantyInformation,
+    string? ShippingInformation,
+    string? AvailabilityStatus,
+    string? ReturnPolicy,
+    string ThumbnailUrl,
+    ProductMetaDto Meta,
+    IReadOnlyCollection<string> ImageUrls,
+    IReadOnlyCollection<string> Tags,
+    IReadOnlyCollection<ReviewDto> Reviews);
