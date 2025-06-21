@@ -21,9 +21,9 @@ public sealed class Product : VersionedEntity
     public string? ShippingInformation { get; init; }
     public string? AvailabilityStatus { get; init; }
     public string? ReturnPolicy { get; init; }
-    public required string ThumbnailUrl { get; init; }
+    public required string Thumbnail { get; init; }
     public required ProductMeta Meta { get; init; }
-    public required IReadOnlyCollection<string> ImageUrls { get; init; }
+    public required IReadOnlyCollection<string> Images { get; init; }
     public required IReadOnlyCollection<string> Tags { get; init; }
     public IReadOnlyCollection<Review> Reviews { get; init; } = new List<Review>();
 }
