@@ -18,8 +18,8 @@ public sealed record ProductDto(
     string? ShippingInformation,
     string? AvailabilityStatus,
     string? ReturnPolicy,
-    string ThumbnailUrl,
+    string Thumbnail,
     ProductMetaDto Meta,
-    IReadOnlyCollection<string> ImageUrls,
+    IReadOnlyCollection<string> Images,
     IReadOnlyCollection<string> Tags,
     IReadOnlyCollection<ReviewDto> Reviews);

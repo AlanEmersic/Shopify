@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
@@ -12,6 +13,7 @@ export default defineConfig({
       svgrOptions: { exportType: "named", ref: true, svgo: false, titleProp: true },
       include: "**/*.svg",
     }),
+    tailwindcss(),
     viteTsconfigPaths(),
   ],
   build: {
