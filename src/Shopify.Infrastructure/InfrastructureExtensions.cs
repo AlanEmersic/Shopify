@@ -55,6 +55,8 @@ public static class InfrastructureExtensions
 
     private static void AddServices(this IServiceCollection services)
     {
+        services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining(typeof(InfrastructureExtensions)));
+
         services.AddHttpClient(ApiConstants.ClientName, client =>
         {
             const string baseApiUri = "https://dummyjson.com";
