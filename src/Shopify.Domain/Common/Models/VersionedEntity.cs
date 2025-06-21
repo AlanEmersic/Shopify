@@ -1,4 +1,4 @@
-﻿namespace Shopify.Domain.Common;
+﻿namespace Shopify.Domain.Common.Models;
 
 public abstract class VersionedEntity : Entity
 {

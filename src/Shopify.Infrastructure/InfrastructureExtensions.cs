@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Shopify.Domain.Common.Interfaces;
+using Shopify.Infrastructure.Authentication;
 using Shopify.Infrastructure.Persistence.Database;
 
 namespace Shopify.Infrastructure;
@@ -14,6 +16,7 @@ public static class InfrastructureExtensions
     {
         services.AddDatabase(configuration);
         services.AddServices();
+        services.AddAuthentication(configuration);
 
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -49,6 +52,11 @@ public static class InfrastructureExtensions
 
     private static void AddServices(this IServiceCollection services)
     {
+    }
+
+    private static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
     }
 
     private static void AddSwagger(this IServiceCollection services)

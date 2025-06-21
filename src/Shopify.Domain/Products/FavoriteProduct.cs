@@ -1,4 +1,4 @@
-﻿using Shopify.Domain.Common;
+﻿using Shopify.Domain.Common.Models;
 using Shopify.Domain.Users;
 
 namespace Shopify.Domain.Products;
