@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Shopify.Domain.Common.Interfaces;
+using Shopify.Infrastructure.Authentication.Errors;
 using System.Text.RegularExpressions;
 
 namespace Shopify.Infrastructure.Authentication;
@@ -13,7 +14,7 @@ internal partial class PasswordHasher : IPasswordHasher
 
     public ErrorOr<string> HashPassword(string password)
     {
-        return !PasswordRegex.IsMatch(password) ? Error.Validation(description: "Password too weak") : BCrypt.Net.BCrypt.EnhancedHashPassword(password);
+        return !PasswordRegex.IsMatch(password) ? PasswordHasherErrors.PasswordTooWeak : BCrypt.Net.BCrypt.EnhancedHashPassword(password);
     }
 
     public bool IsCorrectPassword(string password, string hash)
