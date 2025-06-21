@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Shopify.Infrastructure.Persistence.Database;
 
 namespace Shopify.Infrastructure;
 
@@ -11,6 +12,7 @@ public static class InfrastructureExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDatabase(configuration);
         services.AddServices();
 
         services.AddControllers();
