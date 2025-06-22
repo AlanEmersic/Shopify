@@ -50,3 +50,18 @@ export type Review = {
   reviewerEmail: string;
   date: string;
 };
+
+export type ProductsQuery = {
+  search?: string;
+  skip?: number;
+  limit?: number;
+  category?: string;
+  sortBy?: string;
+  order?: "asc" | "desc";
+};
+
+export type Category = {
+  slug: string;
+  name: string;
+  url: string;
+};

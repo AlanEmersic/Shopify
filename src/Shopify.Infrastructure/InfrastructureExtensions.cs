@@ -9,7 +9,7 @@ using Shopify.Domain.Common.Interfaces;
 using Shopify.Infrastructure.Authentication;
 using Shopify.Infrastructure.Common.Constants;
 using Shopify.Infrastructure.Persistence.Database;
-using Shopify.Infrastructure.Products;
+using Shopify.Infrastructure.Products.Services;
 
 namespace Shopify.Infrastructure;
 

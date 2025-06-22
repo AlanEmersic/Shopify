@@ -20,6 +20,6 @@ public sealed record ProductDto(
     string? ReturnPolicy,
     string Thumbnail,
     ProductMetaDto Meta,
-    IReadOnlyCollection<string> Images,
-    IReadOnlyCollection<string> Tags,
-    IReadOnlyCollection<ReviewDto> Reviews);
+    IReadOnlyList<string> Images,
+    IReadOnlyList<string> Tags,
+    IReadOnlyList<ReviewDto> Reviews);

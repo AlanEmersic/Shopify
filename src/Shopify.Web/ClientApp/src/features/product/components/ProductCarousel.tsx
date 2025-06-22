@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import type { Product } from "features";
 import { ArrowLeft, ArrowRight } from "assets/icons";
+import type { Product } from "features";
 
 type ProductCarousel = {
   product: Product;
@@ -24,9 +24,11 @@ function ProductCarousel({ product }: Readonly<ProductCarousel>) {
 
   return (
     <div className="relative flex w-full items-center justify-center">
-      <button onClick={handlePreviousImage}>
-        <ArrowLeft className="h-10 w-10 rounded-3xl bg-white text-gray-500 hover:cursor-pointer hover:bg-slate-200" />
-      </button>
+      {product.images.length > 1 && (
+        <button onClick={handlePreviousImage}>
+          <ArrowLeft className="h-10 w-10 rounded-3xl bg-white text-gray-500 hover:cursor-pointer hover:bg-slate-200" />
+        </button>
+      )}
 
       {/* Image slider */}
       <div className="relative w-[400px] overflow-hidden rounded-lg">
@@ -43,9 +45,11 @@ function ProductCarousel({ product }: Readonly<ProductCarousel>) {
         </div>
       </div>
 
-      <button onClick={handleNextImage}>
-        <ArrowRight className="h-10 w-10 rounded-3xl bg-white text-gray-500 hover:cursor-pointer hover:bg-slate-200" />
-      </button>
+      {product.images.length > 1 && (
+        <button onClick={handleNextImage}>
+          <ArrowRight className="h-10 w-10 rounded-3xl bg-white text-gray-500 hover:cursor-pointer hover:bg-slate-200" />
+        </button>
+      )}
 
       <div className="absolute bottom-0 flex w-full justify-center gap-3">
         {product.images.map((image, index) => (
