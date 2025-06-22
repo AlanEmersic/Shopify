@@ -1,6 +1,12 @@
 export { Navigation } from "./navigation/components/Navigation";
 export { NAVIGATION_ITEMS, ROUTES } from "./navigation/types";
 
+export { useLogin } from "./authentication/api/login";
+export { useRegister } from "./authentication/api/register";
+export { Login } from "./authentication/components/Login";
+export { Register } from "./authentication/components/Register";
+export type { AuthenticationDto, LoginQuery, RegisterCommand, ValidationErrors } from "./authentication/types";
+
 export { useCategories } from "./product/api/getCategories";
 export { useProduct } from "./product/api/getProduct";
 export { useProducts } from "./product/api/getProducts";

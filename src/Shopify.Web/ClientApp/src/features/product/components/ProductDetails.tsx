@@ -25,7 +25,7 @@ function ProductDetails() {
       {/* Tags */}
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
         {product.data?.tags.map(tag => (
-          <span key={tag} className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
+          <span key={tag} className="rounded-full bg-cyan-100 px-3 py-1 text-sm font-medium text-cyan-800">
             {tag}
           </span>
         ))}

@@ -39,11 +39,11 @@ public static class InfrastructureExtensions
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app, IWebHostEnvironment environment)
     {
-        app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().WithOrigins("https://localhost:3000"));
+        app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000"));
         app.UseExceptionHandler();
         app.UseHttpsRedirection();
         app.UseRouting();
-
+        app.UseStaticFiles();
         app.UseAuthorization();
 
         if (environment.IsDevelopment())
