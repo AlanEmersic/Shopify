@@ -5,7 +5,7 @@ using Shopify.Application.Products.Services;
 
 namespace Shopify.Infrastructure.Persistence.Products.Queries.GetProducts;
 
-public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, ErrorOr<ProductPagedDto?>>
+internal sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, ErrorOr<ProductPagedDto?>>
 {
     private readonly IProductApiService productApiService;
 
