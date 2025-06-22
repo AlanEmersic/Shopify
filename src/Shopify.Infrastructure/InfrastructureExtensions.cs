@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shopify.Application.Products.Services;
 using Shopify.Domain.Common.Interfaces;
 using Shopify.Infrastructure.Authentication;
+using Shopify.Infrastructure.Authentication.JwtToken;
 using Shopify.Infrastructure.Common.Constants;
 using Shopify.Infrastructure.Persistence.Database;
 using Shopify.Infrastructure.Products.Services;
+using System.Text;
 
 namespace Shopify.Infrastructure;
 
@@ -71,7 +76,28 @@ public static class InfrastructureExtensions
 
     private static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
+        JwtSettings jwtSettings = new();
+        configuration.Bind(JwtSettings.Section, jwtSettings);
+
+        services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+        services
+            .AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                };
+            });
     }
 
     private static void AddSwagger(this IServiceCollection services)
