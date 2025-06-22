@@ -36,8 +36,8 @@ public sealed class PasswordHasherTests
 
         // Assert
         result.IsError.ShouldBeTrue();
-        result.FirstError.Code.ShouldBe(PasswordHasherErrors.PasswordTooWeak.Code);
-        result.FirstError.Description.ShouldBe(PasswordHasherErrors.PasswordTooWeak.Description);
+        result.FirstError.Code.ShouldBe(AuthenticationErrors.PasswordTooWeak.Code);
+        result.FirstError.Description.ShouldBe(AuthenticationErrors.PasswordTooWeak.Description);
     }
 
     [Fact]
