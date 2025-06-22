@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Shopify.Application.Products.Services;
 using Shopify.Domain.Common.Interfaces;
 using Shopify.Infrastructure.Authentication;
+using Shopify.Infrastructure.Authentication.Filters;
 using Shopify.Infrastructure.Authentication.JwtToken;
 using Shopify.Infrastructure.Common.Constants;
 using Shopify.Infrastructure.Persistence.Database;
@@ -105,6 +106,14 @@ public static class InfrastructureExtensions
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopify API", Version = "v1" });
+
+            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme
+            });
+
+            options.OperationFilter<AuthenticationRequirementsOperationFilter>();
         });
     }
 }

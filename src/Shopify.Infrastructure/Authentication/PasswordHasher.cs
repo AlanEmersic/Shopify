@@ -14,7 +14,7 @@ internal partial class PasswordHasher : IPasswordHasher
 
     public ErrorOr<string> HashPassword(string password)
     {
-        return !PasswordRegex.IsMatch(password) ? PasswordHasherErrors.PasswordTooWeak : BCrypt.Net.BCrypt.EnhancedHashPassword(password);
+        return !PasswordRegex.IsMatch(password) ? AuthenticationErrors.PasswordTooWeak : BCrypt.Net.BCrypt.EnhancedHashPassword(password);
     }
 
     public bool IsCorrectPassword(string password, string hash)
