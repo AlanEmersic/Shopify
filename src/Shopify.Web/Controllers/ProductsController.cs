@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopify.Application.Products.DTO;
+using Shopify.Application.Products.Requests;
+using Shopify.Infrastructure.Persistence.Products.Queries.GetCategories;
 using Shopify.Infrastructure.Persistence.Products.Queries.GetProduct;
 using Shopify.Infrastructure.Persistence.Products.Queries.GetProducts;
 
@@ -18,9 +20,9 @@ public sealed class ProductsController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts(int skip = 0, int limit = 10)
+    public async Task<IActionResult> GetProducts([FromQuery] GetProductsRequest request)
     {
-        GetProductsQuery query = new(skip, limit);
+        GetProductsQuery query = new(request.Search, request.Skip, request.Limit, request.SortBy, request.Order, request.Category);
         ErrorOr<ProductPagedDto?> result = await mediator.Send(query);
 
         return result.Match(Ok, Problem);
@@ -33,5 +35,14 @@ public sealed class ProductsController : ApiController
         ErrorOr<ProductDto?> result = await mediator.Send(query);
 
         return result.Match(Ok, Problem);
+    }
+
+    [HttpGet("categories")]
+    public async Task<IActionResult> GetCategories()
+    {
+        GetCategoriesQuery query = new();
+        IReadOnlyList<CategoryDto>? result = await mediator.Send(query);
+
+        return Ok(result);
     }
 }

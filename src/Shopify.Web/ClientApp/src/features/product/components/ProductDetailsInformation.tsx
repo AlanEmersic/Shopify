@@ -19,7 +19,7 @@ function ProductDetailsInformation({ product }: Readonly<ProductDetailsInformati
       <p className="text-gray-700">
         Dimensions: {product?.dimensions ? `${product.dimensions.width} x ${product.dimensions.height} x ${product.dimensions.depth}` : "N/A"}
       </p>
-      <p className="text-gray-700">Weight: {product?.weight ? `${product.weight} g` : "N/A"}</p>
+      <p className="text-gray-700">Weight: {product?.weight ? `${product.weight}` : "N/A"}</p>
       <p className="text-gray-700">Warranty information: {product.warrantyInformation}</p>
       <p className="text-gray-700">Return policy: {product.returnPolicy}</p>
       <p className="text-gray-700">Shipping information: {product.shippingInformation}</p>

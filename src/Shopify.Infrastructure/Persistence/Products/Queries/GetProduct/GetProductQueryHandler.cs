@@ -16,7 +16,7 @@ internal sealed class GetProductQueryHandler : IRequestHandler<GetProductQuery, 
 
     public async Task<ErrorOr<ProductDto?>> Handle(GetProductQuery query, CancellationToken cancellationToken)
     {
-        ProductDto? product = await productApiService.GetProductAsync(query.Id);
+        ProductDto? product = await productApiService.GetProductAsync(query.Id, cancellationToken);
 
         return product;
     }
