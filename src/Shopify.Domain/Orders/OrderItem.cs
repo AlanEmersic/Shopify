@@ -3,7 +3,7 @@ using Shopify.Domain.Products;
 
 namespace Shopify.Domain.Orders;
 
-public sealed class OrderItem : Entity
+public sealed class OrderItem : VersionedEntity
 {
     public required int OrderId { get; init; }
     public required int ProductId { get; init; }
