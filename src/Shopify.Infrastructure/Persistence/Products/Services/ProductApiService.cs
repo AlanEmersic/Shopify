@@ -4,7 +4,7 @@ using Shopify.Application.Products.Services;
 using Shopify.Infrastructure.Common.Constants;
 using System.Net.Http.Json;
 
-namespace Shopify.Infrastructure.Products.Services;
+namespace Shopify.Infrastructure.Persistence.Products.Services;
 
 internal sealed class ProductApiService : IProductApiService
 {
