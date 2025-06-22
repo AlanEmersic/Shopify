@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useShallow } from "zustand/shallow";
 
 import { NAVIGATION_ITEMS, ROUTES } from "features";
+import { useAuthStore } from "stores";
 
 function Navigation() {
+  const { token, logout } = useAuthStore(useShallow(state => ({ token: state.token, logout: state.logout })));
+
+  const handleOnLogoutClick = () => {
+    logout();
+  };
+
   return (
     <nav className="border-gray-200 bg-white pb-[50px]">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
@@ -29,6 +37,37 @@ function Navigation() {
                   {item.name}
                 </Link>
               ))}
+
+              {token ? (
+                <>
+                  <Link
+                    onClick={handleOnLogoutClick}
+                    to={ROUTES.LOG_OUT}
+                    className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    aria-current="page"
+                  >
+                    Log Out
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={ROUTES.LOG_IN}
+                    className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    aria-current="page"
+                  >
+                    Log In
+                  </Link>
+
+                  <Link
+                    to={ROUTES.REGISTER}
+                    className="rounded-md bg-cyan-100 px-2 py-1 text-center text-xl text-cyan-400 md:hover:bg-cyan-200"
+                    aria-current="page"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

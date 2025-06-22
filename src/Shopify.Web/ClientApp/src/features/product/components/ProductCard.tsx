@@ -24,7 +24,7 @@ function ProductCard({ product }: Readonly<ProductCardProps>) {
         <h5 className="text-gray-90 mb-2 text-2xl font-bold tracking-tight">{product.title}</h5>
         <p className="mb-3 font-normal text-gray-700">{product.description}</p>
         <div className="mt-3 flex items-end justify-between">
-          <p className="flex w-32 cursor-pointer flex-row items-center rounded-lg bg-cyan-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:ring-4 focus:ring-blue-300 focus:outline-none">
+          <p className="flex w-32 cursor-pointer flex-row items-center rounded-lg bg-cyan-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 focus:outline-none">
             More details
             <svg className="ms-2 h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />

@@ -1,6 +1,9 @@
 export const ROUTES = {
   HOME: "/",
   PRODUCT_DETAILS: "/product/:id",
+  LOG_IN: "/login",
+  LOG_OUT: "/logout",
+  REGISTER: "/register",
 };
 
 export type NavigationItem = {
