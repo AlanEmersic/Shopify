@@ -8,14 +8,18 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shopify.Application.Products.Services;
+using Shopify.Application.Users.Services;
 using Shopify.Domain.Common.Interfaces;
 using Shopify.Infrastructure.Authentication;
 using Shopify.Infrastructure.Authentication.Filters;
 using Shopify.Infrastructure.Authentication.JwtToken;
+using Shopify.Infrastructure.Authorization.Behaviors;
 using Shopify.Infrastructure.Common.Constants;
 using Shopify.Infrastructure.Persistence.Database;
-using Shopify.Infrastructure.Products.Services;
+using Shopify.Infrastructure.Persistence.Products.Services;
+using Shopify.Infrastructure.Persistence.Users.Services;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Shopify.Infrastructure;
 
@@ -27,12 +31,16 @@ public static class InfrastructureExtensions
         services.AddServices();
         services.AddAuthentication(configuration);
 
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        });
         services.AddEndpointsApiExplorer();
 
         services.AddSwagger();
 
         services.AddProblemDetails();
+        services.AddHttpContextAccessor();
 
         return services;
     }
@@ -64,7 +72,11 @@ public static class InfrastructureExtensions
 
     private static void AddServices(this IServiceCollection services)
     {
-        services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining(typeof(InfrastructureExtensions)));
+        services.AddMediatR(options =>
+        {
+            options.RegisterServicesFromAssemblyContaining(typeof(InfrastructureExtensions));
+            options.AddOpenBehavior(typeof(AuthorizationBehavior<,>));
+        });
 
         services.AddHttpClient(ApiConstants.ClientName, client =>
         {
@@ -73,6 +85,7 @@ public static class InfrastructureExtensions
         });
 
         services.AddScoped<IProductApiService, ProductApiService>();
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
     }
 
     private static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
