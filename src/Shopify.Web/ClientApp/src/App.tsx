@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { queryClient } from "config";
 import { ProductList, ROUTES } from "features";
+import { ProductDetails } from "features/product/components/ProductDetails";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={ROUTES.HOME} element={<ProductList />} />
+          <Route path={ROUTES.PRODUCT_DETAILS} element={<ProductDetails />} />
 
           <Route path={"*"} element={<ProductList />} />
         </Routes>

@@ -34,4 +34,22 @@ internal sealed class ProductApiService : IProductApiService
             return null;
         }
     }
+
+    public async Task<ProductDto?> GetProductAsync(int id)
+    {
+        try
+        {
+            string requestUri = $"products/{id}";
+            HttpClient httpClient = httpClientFactory.CreateClient(ApiConstants.ClientName);
+            ProductDto? response = await httpClient.GetFromJsonAsync<ProductDto?>(requestUri);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ex.Message);
+
+            return null;
+        }
+    }
 }
