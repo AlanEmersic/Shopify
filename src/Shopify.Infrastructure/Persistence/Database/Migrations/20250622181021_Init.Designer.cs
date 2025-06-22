@@ -12,7 +12,7 @@ using Shopify.Infrastructure.Persistence.Database;
 namespace Shopify.Infrastructure.Persistence.Database.Migrations
 {
     [DbContext(typeof(ShopifyDbContext))]
-    [Migration("20250622175341_Init")]
+    [Migration("20250622181021_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -58,7 +58,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Shopify.Domain.Orders.OrderItem", b =>
@@ -103,7 +103,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Shopify.Domain.Products.FavoriteProduct", b =>
@@ -141,7 +141,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoriteProduct");
+                    b.ToTable("FavoriteProducts");
                 });
 
             modelBuilder.Entity("Shopify.Domain.Products.Product", b =>
@@ -237,7 +237,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Shopify.Domain.Products.Review", b =>
@@ -288,7 +288,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Shopify.Domain.Users.User", b =>
@@ -400,7 +400,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Product");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
@@ -427,7 +427,7 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Product");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");
