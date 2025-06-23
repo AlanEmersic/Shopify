@@ -4,11 +4,12 @@ export const ROUTES = {
   LOG_IN: "/login",
   LOG_OUT: "/logout",
   REGISTER: "/register",
+  PROFILE: "/profile",
 };
 
 export type NavigationItem = {
   id?: number;
-  name: "Home" | "About";
+  name: "Home";
   link: string;
 };
 

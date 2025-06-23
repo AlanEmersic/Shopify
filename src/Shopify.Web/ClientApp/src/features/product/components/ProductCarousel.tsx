@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { ArrowLeft, ArrowRight } from "assets/icons";
+import { ArrowLeft, ArrowRight } from "assets";
 import type { Product } from "features";
 
 type ProductCarousel = {

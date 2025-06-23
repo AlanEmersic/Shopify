@@ -41,6 +41,14 @@ function Navigation() {
               {token ? (
                 <>
                   <Link
+                    to={ROUTES.PROFILE}
+                    className="block rounded px-3 py-2 text-cyan-400 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    aria-current="page"
+                  >
+                    Profile
+                  </Link>
+
+                  <Link
                     onClick={handleOnLogoutClick}
                     to={ROUTES.LOG_OUT}
                     className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
