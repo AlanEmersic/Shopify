@@ -89,9 +89,9 @@ function Login() {
 
               <p className="text-base font-medium text-gray-500">
                 Don’t have an account yet?{" "}
-                <a onClick={handleOnRegisterClick} className="font-medium text-gray-600 hover:cursor-pointer hover:text-cyan-500">
+                <button onClick={handleOnRegisterClick} className="font-medium text-gray-600 hover:cursor-pointer hover:text-cyan-500">
                   Register
-                </a>
+                </button>
               </p>
             </form>
 

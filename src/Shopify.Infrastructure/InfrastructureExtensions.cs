@@ -50,8 +50,9 @@ public static class InfrastructureExtensions
         app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000"));
         app.UseExceptionHandler();
         app.UseHttpsRedirection();
-        app.UseRouting();
         app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthentication();
         app.UseAuthorization();
 
         if (environment.IsDevelopment())

@@ -20,3 +20,10 @@ export { ProductReview } from "./product/components/ProductReview";
 export { useDebounce } from "./product/hooks/useDebounce";
 export { useProductList } from "./product/hooks/useProductList";
 export type { Category, Dimensions, Meta, Product, ProductPaged, ProductsQuery, Review } from "./product/types";
+
+export { useUser } from "./user/api/getUser";
+export type { User } from "./user/types";
+export { USER_PROFILE_TABS, USER_PROFILE_TABS_ICONS } from "./user/constants";
+export { UserProfile } from "./user/components/UserProfile";
+export { UserProfileDetails } from "./user/components/UserProfileDetails";
+export { UserProfileTabs } from "./user/components/UserProfileTabs";

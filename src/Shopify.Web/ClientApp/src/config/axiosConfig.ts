@@ -19,14 +19,14 @@ instance.interceptors.request.use(
     const { token } = useAuthStore.getState();
 
     if (token) {
-      config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
+      config.headers.Authorization = `Bearer ${token}`;
 
       const decodedToken = jwtDecode(token);
 
-      if (decodedToken?.roles?.includes(Role.Admin)) {
-        useAuthStore.setState({ isAdmin: true });
-      } else {
-        useAuthStore.setState({ isAdmin: false });
+      if (decodedToken) {
+        useAuthStore.setState({
+          isAdmin: decodedToken.roles?.includes("Admin") ?? false,
+        });
       }
     }
 

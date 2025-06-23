@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Shopify.Application.Authorization;
 using Shopify.Application.Users.DTO;
 using Shopify.Application.Users.Services;
 using System.Reflection;
@@ -41,6 +41,6 @@ internal sealed class AuthorizationBehavior<TRequest, TResponse> : IPipelineBeha
             return (dynamic)Error.Unauthorized(description: "User is forbidden from taking this action");
         }
 
-        return await next();
+        return await next(cancellationToken);
     }
 }

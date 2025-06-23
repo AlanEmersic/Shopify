@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using Shopify.Application.Authorization;
 using Shopify.Application.Users.DTO;
 using Shopify.Domain.Users;
 

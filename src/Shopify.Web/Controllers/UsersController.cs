@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shopify.Application.Authorization;
 using Shopify.Application.Users.DTO;
 using Shopify.Domain.Users;
 using Shopify.Infrastructure.Persistence.Users.Queries.GetUser;
