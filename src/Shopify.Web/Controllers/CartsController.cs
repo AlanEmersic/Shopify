@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopify.Application.Authorization;
 using Shopify.Application.Carts.Commands.AddToCart;
+using Shopify.Application.Carts.Commands.ClearCart;
 using Shopify.Application.Carts.Commands.RemoveFromCart;
 using Shopify.Application.Carts.DTO;
 using Shopify.Application.Carts.Requests;
@@ -35,7 +36,7 @@ public sealed class CartsController : ApiController
     [Authorize(Roles = nameof(UserRoles.Customer))]
     public async Task<IActionResult> AddToCart(AddToCartRequest request)
     {
-        AddToCartCommand command = new(request.ProductId, request.Quantity);
+        AddToCartCommand command = new(request.ProductId, request.Quantity, request.Title, request.Thumbnail, request.Price);
         ErrorOr<Created> result = await mediator.Send(command);
 
         return result.Match(_ => CreatedAtAction(nameof(AddToCart), default), Problem);
@@ -46,6 +47,16 @@ public sealed class CartsController : ApiController
     public async Task<IActionResult> RemoveFromCart(int productId)
     {
         RemoveFromCartCommand command = new(productId);
+        ErrorOr<Deleted> result = await mediator.Send(command);
+
+        return result.Match(_ => NoContent(), Problem);
+    }
+
+    [HttpDelete("clear")]
+    [Authorize(Roles = nameof(UserRoles.Customer))]
+    public async Task<IActionResult> ClearCart()
+    {
+        ClearCartCommand command = new();
         ErrorOr<Deleted> result = await mediator.Send(command);
 
         return result.Match(_ => NoContent(), Problem);

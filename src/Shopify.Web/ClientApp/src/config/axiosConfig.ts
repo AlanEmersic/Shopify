@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { jwtDecode } from "jwt-decode";
 
 import { useAuthStore } from "stores";
@@ -12,16 +12,26 @@ const defaultOptions = {
   },
 };
 
+type JwtPayload = {
+  email?: string;
+  address?: string;
+  id?: string;
+  roles?: string[];
+  exp?: number;
+  iss?: string;
+  aud?: string;
+};
+
 const instance = axios.create(defaultOptions);
 
 instance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  async (config: InternalAxiosRequestConfig) => {
     const { token } = useAuthStore.getState();
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
 
-      const decodedToken = jwtDecode(token);
+      const decodedToken: JwtPayload = jwtDecode(token);
 
       if (decodedToken) {
         useAuthStore.setState({
@@ -32,7 +42,7 @@ instance.interceptors.request.use(
 
     return config;
   },
-  error => {
+  async (error: AxiosError) => {
     return Promise.reject(error);
   },
 );

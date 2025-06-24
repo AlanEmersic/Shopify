@@ -22,8 +22,15 @@ export { useProductList } from "./product/hooks/useProductList";
 export type { Category, Dimensions, Meta, Product, ProductPaged, ProductsQuery, Review } from "./product/types";
 
 export { useUser } from "./user/api/getUser";
-export type { User } from "./user/types";
-export { USER_PROFILE_TABS, USER_PROFILE_TABS_ICONS } from "./user/constants";
 export { UserProfile } from "./user/components/UserProfile";
 export { UserProfileDetails } from "./user/components/UserProfileDetails";
 export { UserProfileTabs } from "./user/components/UserProfileTabs";
+export { USER_PROFILE_TABS, USER_PROFILE_TABS_ICONS } from "./user/constants";
+export type { User } from "./user/types";
+
+export { useAddToCart } from "./cart/api/addCartItem";
+export { useClearCart } from "./cart/api/clearCart";
+export { useCart } from "./cart/api/getCart";
+export { useRemoveCartItem } from "./cart/api/removeCartItem";
+export { Cart } from "./cart/components/Cart";
+export type { CartItem } from "./cart/types";

@@ -14,11 +14,6 @@ internal sealed class CartRepository : ICartRepository
         this.dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<CartItem>> GetAllByUserIdAsync(int userId)
-    {
-        return await dbContext.CartItems.AsNoTracking().Where(x => x.UserId == userId).ToListAsync();
-    }
-
     public async Task<CartItem?> GetByUserIdAndProductIdAsync(int userId, int productId)
     {
         return await dbContext.CartItems.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == productId);
@@ -43,5 +38,10 @@ internal sealed class CartRepository : ICartRepository
         dbContext.CartItems.Remove(cartItem);
 
         await Task.CompletedTask;
+    }
+
+    public async Task DeleteAllByUserIdAsync(int userId)
+    {
+        await dbContext.CartItems.Where(x => x.UserId == userId).ExecuteDeleteAsync();
     }
 }
