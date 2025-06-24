@@ -20,10 +20,5 @@ internal sealed class FavoriteProductConfiguration : IEntityTypeConfiguration<Fa
             .WithMany()
             .HasForeignKey(f => f.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne(f => f.Product)
-            .WithMany()
-            .HasForeignKey(f => f.ProductId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

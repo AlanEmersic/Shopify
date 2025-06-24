@@ -1,8 +1,12 @@
 ﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shopify.Application.Authorization;
+using Shopify.Application.Products.Commands.AddToFavorites;
+using Shopify.Application.Products.Commands.RemoveFromFavorites;
 using Shopify.Application.Products.DTO;
 using Shopify.Application.Products.Requests;
+using Shopify.Domain.Users;
 using Shopify.Infrastructure.Persistence.Products.Queries.GetCategories;
 using Shopify.Infrastructure.Persistence.Products.Queries.GetProduct;
 using Shopify.Infrastructure.Persistence.Products.Queries.GetProducts;
@@ -44,5 +48,25 @@ public sealed class ProductsController : ApiController
         IReadOnlyList<CategoryDto>? result = await mediator.Send(query);
 
         return Ok(result);
+    }
+
+    [HttpPost("{id:int}/favorites")]
+    [Authorize(Roles = nameof(UserRoles.Customer))]
+    public async Task<IActionResult> AddToFavorites(int id)
+    {
+        AddToFavoritesCommand command = new(id);
+        ErrorOr<Created> result = await mediator.Send(command);
+
+        return result.Match(_ => CreatedAtAction(nameof(AddToFavorites), default), Problem);
+    }
+
+    [HttpDelete("{id:int}/favorites")]
+    [Authorize(Roles = nameof(UserRoles.Customer))]
+    public async Task<IActionResult> RemoveFromFavorites(int id)
+    {
+        RemoveFromFavoritesCommand command = new(id);
+        ErrorOr<Deleted> result = await mediator.Send(command);
+
+        return result.Match(_ => NoContent(), Problem);
     }
 }

@@ -26,7 +26,9 @@ internal class CurrentUserProvider : ICurrentUserProvider
 
         IReadOnlyList<string> roles = GetClaimValues(ClaimTypes.Role);
 
-        return new CurrentUserDto(id, roles);
+        CurrentUserDto currentUser = new(id, roles);
+
+        return currentUser;
     }
 
     private IReadOnlyList<string> GetClaimValues(string claimType)
