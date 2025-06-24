@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shopify.Application.Common.Interfaces;
+using Shopify.Domain.Carts.Repositories;
 using Shopify.Domain.Products.Repositories;
 using Shopify.Domain.Users.Repositories;
+using Shopify.Infrastructure.Persistence.Carts.Repositories;
 using Shopify.Infrastructure.Persistence.Products.Repositories;
 using Shopify.Infrastructure.Persistence.Users.Repositories;
 
@@ -31,6 +33,7 @@ internal static class DatabaseExtensions
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ShopifyDbContext>());
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
 
         return services;
     }

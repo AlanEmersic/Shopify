@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shopify.Application.Common.Interfaces;
+using Shopify.Domain.Carts;
 using Shopify.Domain.Orders;
 using Shopify.Domain.Products;
 using Shopify.Domain.Users;
@@ -14,6 +15,7 @@ internal sealed class ShopifyDbContext : DbContext, IUnitOfWork
     public DbSet<FavoriteProduct> FavoriteProducts => Set<FavoriteProduct>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<CartItem> CartItems => Set<CartItem>();
 
     public ShopifyDbContext(DbContextOptions<ShopifyDbContext> options) : base(options)
     {
