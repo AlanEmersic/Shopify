@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Events;
 using Shopify.Application.Products.Services;
 using Shopify.Application.Users.Services;
 using Shopify.Domain.Common.Interfaces;
@@ -25,7 +27,7 @@ namespace Shopify.Infrastructure;
 
 public static class InfrastructureExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IHostBuilder hostBuilder)
     {
         services.AddDatabase(configuration);
         services.AddServices();
@@ -43,6 +45,8 @@ public static class InfrastructureExtensions
         services.AddProblemDetails();
         services.AddHttpContextAccessor();
 
+        hostBuilder.UseSerilog((_, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(configuration));
+
         return services;
     }
 
@@ -55,6 +59,8 @@ public static class InfrastructureExtensions
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.UseSerilogRequestLogging();
 
         if (environment.IsDevelopment())
         {
@@ -122,11 +128,7 @@ public static class InfrastructureExtensions
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopify API", Version = "v1" });
 
-            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
-            {
-                Type = SecuritySchemeType.Http,
-                Scheme = JwtBearerDefaults.AuthenticationScheme
-            });
+            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme { Type = SecuritySchemeType.Http, Scheme = JwtBearerDefaults.AuthenticationScheme });
 
             options.OperationFilter<AuthenticationRequirementsOperationFilter>();
         });
