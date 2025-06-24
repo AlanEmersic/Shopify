@@ -9,5 +9,4 @@ public sealed class FavoriteProduct : VersionedEntity
     public required int ProductId { get; init; }
 
     public User? User { get; init; }
-    public Product? Product { get; init; }
 }

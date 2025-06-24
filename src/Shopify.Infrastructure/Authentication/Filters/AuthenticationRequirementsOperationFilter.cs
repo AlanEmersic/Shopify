@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
+using Shopify.Application.Authorization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shopify.Infrastructure.Authentication.Filters;

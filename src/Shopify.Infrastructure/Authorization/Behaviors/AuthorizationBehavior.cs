@@ -27,7 +27,7 @@ internal sealed class AuthorizationBehavior<TRequest, TResponse> : IPipelineBeha
 
         if (authorizationAttributes.Count == 0)
         {
-            return await next();
+            return await next(cancellationToken);
         }
 
         CurrentUserDto currentUser = currentUserProvider.GetCurrentUser();
