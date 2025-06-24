@@ -5,6 +5,7 @@ export const ROUTES = {
   LOG_OUT: "/logout",
   REGISTER: "/register",
   PROFILE: "/profile",
+  CART: "/cart",
 };
 
 export type NavigationItem = {

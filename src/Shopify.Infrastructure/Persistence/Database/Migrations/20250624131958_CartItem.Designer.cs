@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shopify.Infrastructure.Persistence.Database;
 
@@ -11,9 +12,11 @@ using Shopify.Infrastructure.Persistence.Database;
 namespace Shopify.Infrastructure.Persistence.Database.Migrations
 {
     [DbContext(typeof(ShopifyDbContext))]
-    partial class ShopifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250624131958_CartItem")]
+    partial class CartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

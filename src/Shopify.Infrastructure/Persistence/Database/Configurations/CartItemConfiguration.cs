@@ -12,6 +12,9 @@ internal sealed class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
         builder.Property(ci => ci.UserId).IsRequired();
         builder.Property(ci => ci.ProductId).IsRequired();
         builder.Property(ci => ci.Quantity).IsRequired();
+        builder.Property(p => p.Title).IsRequired();
+        builder.Property(p => p.Thumbnail).IsRequired();
+        builder.Property(p => p.Price).HasPrecision(18, 4).IsRequired();
 
         builder.Property(ci => ci.CreatedAt).HasDefaultValueSql("GetUtcDate()").ValueGeneratedOnAdd();
         builder.Property(ci => ci.UpdatedAt).ValueGeneratedOnAddOrUpdate();

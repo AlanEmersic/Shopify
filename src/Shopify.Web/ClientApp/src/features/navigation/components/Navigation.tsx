@@ -31,7 +31,7 @@ function Navigation() {
                 <Link
                   key={item.id}
                   to={item.link}
-                  className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                  className="block rounded px-3 py-2 font-bold text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
                   aria-current="page"
                 >
                   {item.name}
@@ -42,16 +42,24 @@ function Navigation() {
                 <>
                   <Link
                     to={ROUTES.PROFILE}
-                    className="block rounded px-3 py-2 text-cyan-400 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    className="block rounded px-3 py-2 font-bold text-cyan-400 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
                     aria-current="page"
                   >
                     Profile
                   </Link>
 
                   <Link
+                    to={ROUTES.CART}
+                    className="block rounded px-3 py-2 font-bold text-emerald-500 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-emerald-700"
+                    aria-current="page"
+                  >
+                    Cart
+                  </Link>
+
+                  <Link
                     onClick={handleOnLogoutClick}
                     to={ROUTES.LOG_OUT}
-                    className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    className="block rounded px-3 py-2 font-bold text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
                     aria-current="page"
                   >
                     Log Out
@@ -61,7 +69,7 @@ function Navigation() {
                 <>
                   <Link
                     to={ROUTES.LOG_IN}
-                    className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
+                    className="block rounded px-3 py-2 font-bold text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700"
                     aria-current="page"
                   >
                     Log In
@@ -69,7 +77,7 @@ function Navigation() {
 
                   <Link
                     to={ROUTES.REGISTER}
-                    className="rounded-md bg-cyan-100 px-2 py-1 text-center text-xl text-cyan-400 md:hover:bg-cyan-200"
+                    className="rounded-md bg-cyan-100 px-2 py-1 text-center text-xl font-bold text-cyan-400 md:hover:bg-cyan-200"
                     aria-current="page"
                   >
                     Register
