@@ -99,6 +99,33 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Thumbnail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetUtcDate()"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FavoriteProducts",
                 columns: table => new
                 {
@@ -113,12 +140,6 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FavoriteProducts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FavoriteProducts_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FavoriteProducts_Users_UserId",
                         column: x => x.UserId,
@@ -182,9 +203,9 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteProducts_ProductId",
-                table: "FavoriteProducts",
-                column: "ProductId");
+                name: "IX_CartItems_UserId",
+                table: "CartItems",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavoriteProducts_UserId",
@@ -215,6 +236,9 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CartItems");
+
             migrationBuilder.DropTable(
                 name: "FavoriteProducts");
 

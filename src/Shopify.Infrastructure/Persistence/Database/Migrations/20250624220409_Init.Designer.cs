@@ -12,7 +12,7 @@ using Shopify.Infrastructure.Persistence.Database;
 namespace Shopify.Infrastructure.Persistence.Database.Migrations
 {
     [DbContext(typeof(ShopifyDbContext))]
-    [Migration("20250622181021_Init")]
+    [Migration("20250624220409_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,6 +24,57 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Shopify.Domain.Carts.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Thumbnail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CartItems");
+                });
 
             modelBuilder.Entity("Shopify.Domain.Orders.Order", b =>
                 {
@@ -136,8 +187,6 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -335,6 +384,17 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Shopify.Domain.Carts.CartItem", b =>
+                {
+                    b.HasOne("Shopify.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Shopify.Domain.Orders.Order", b =>
                 {
                     b.HasOne("Shopify.Domain.Users.User", null)
@@ -365,19 +425,11 @@ namespace Shopify.Infrastructure.Persistence.Database.Migrations
 
             modelBuilder.Entity("Shopify.Domain.Products.FavoriteProduct", b =>
                 {
-                    b.HasOne("Shopify.Domain.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Shopify.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });
