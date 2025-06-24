@@ -25,4 +25,8 @@
     <InternalsVisibleTo Include="$(AssemblyName).Tests.Unit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Database\Migrations\" />
+  </ItemGroup>
+
 </Project>
