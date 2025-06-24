@@ -30,6 +30,7 @@ public static class InfrastructureExtensions
         services.AddDatabase(configuration);
         services.AddServices();
         services.AddAuthentication(configuration);
+        services.AddMemoryCache();
 
         services.AddControllers().AddJsonOptions(options =>
         {
