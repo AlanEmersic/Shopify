@@ -21,12 +21,12 @@ internal sealed class ProductRepository : IProductRepository
 
     public async Task<FavoriteProduct?> GetByUserIdAndProductIdAsync(int userId, int productId)
     {
-        return await dbContext.FavoriteProducts.AsNoTracking().Where(x => x.UserId == userId && x.ProductId == productId).FirstOrDefaultAsync();
+        return await dbContext.FavoriteProducts.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == productId);
     }
 
     public async Task<bool> ExistsAsync(int userId, int productId)
     {
-        return await dbContext.FavoriteProducts.AnyAsync(x => x.UserId == userId && x.ProductId == productId);
+        return await dbContext.FavoriteProducts.AsNoTracking().AnyAsync(x => x.UserId == userId && x.ProductId == productId);
     }
 
     public async Task AddAsync(FavoriteProduct favoriteProduct)
