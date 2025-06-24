@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Shopify.Application.Products.DTO;
 using Shopify.Application.Products.Services;
 using Shopify.Infrastructure.Common.Constants;
@@ -9,16 +10,25 @@ namespace Shopify.Infrastructure.Persistence.Products.Services;
 internal sealed class ProductApiService : IProductApiService
 {
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly IMemoryCache memoryCache;
     private readonly ILogger<ProductApiService> logger;
 
-    public ProductApiService(IHttpClientFactory httpClientFactory, ILogger<ProductApiService> logger)
+    public ProductApiService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, ILogger<ProductApiService> logger)
     {
         this.httpClientFactory = httpClientFactory;
+        this.memoryCache = memoryCache;
         this.logger = logger;
     }
 
     public async Task<ProductPagedDto?> GetProductsAsync(string? search, int skip, int limit, string? sortBy, string? order, string? category, CancellationToken cancellationToken)
     {
+        string cacheKey = $"products-{search}-{category}-{skip}-{limit}-{sortBy}-{order}";
+
+        if (memoryCache.TryGetValue(cacheKey, out ProductPagedDto? cached))
+        {
+            return cached;
+        }
+
         try
         {
             string requestUri = $"products?skip={skip}&limit={limit}";
@@ -52,6 +62,11 @@ internal sealed class ProductApiService : IProductApiService
             HttpClient httpClient = httpClientFactory.CreateClient(ApiConstants.ClientName);
             ProductPagedDto? response = await httpClient.GetFromJsonAsync<ProductPagedDto?>(requestUri, cancellationToken);
 
+            if (response is not null)
+            {
+                memoryCache.Set(cacheKey, response, TimeSpan.FromMinutes(10));
+            }
+
             return response;
         }
         catch (Exception ex)
@@ -64,11 +79,23 @@ internal sealed class ProductApiService : IProductApiService
 
     public async Task<ProductDto?> GetProductAsync(int id, CancellationToken cancellationToken)
     {
+        string cacheKey = $"product-{id}";
+
+        if (memoryCache.TryGetValue(cacheKey, out ProductDto? cachedProduct))
+        {
+            return cachedProduct;
+        }
+
         try
         {
             string requestUri = $"products/{id}";
             HttpClient httpClient = httpClientFactory.CreateClient(ApiConstants.ClientName);
             ProductDto? response = await httpClient.GetFromJsonAsync<ProductDto?>(requestUri, cancellationToken);
+
+            if (response is not null)
+            {
+                memoryCache.Set(cacheKey, response, TimeSpan.FromDays(1));
+            }
 
             return response;
         }
@@ -82,11 +109,23 @@ internal sealed class ProductApiService : IProductApiService
 
     public async Task<IReadOnlyList<CategoryDto>?> GetCategoriesAsync(CancellationToken cancellationToken)
     {
+        const string cacheKey = "product-categories";
+
+        if (memoryCache.TryGetValue(cacheKey, out IReadOnlyList<CategoryDto>? cachedCategories))
+        {
+            return cachedCategories;
+        }
+
         try
         {
-            string requestUri = "products/categories";
+            const string requestUri = "products/categories";
             HttpClient httpClient = httpClientFactory.CreateClient(ApiConstants.ClientName);
             IReadOnlyList<CategoryDto>? response = await httpClient.GetFromJsonAsync<IReadOnlyList<CategoryDto>?>(requestUri, cancellationToken);
+
+            if (response is not null)
+            {
+                memoryCache.Set(cacheKey, response, TimeSpan.FromDays(1));
+            }
 
             return response;
         }
