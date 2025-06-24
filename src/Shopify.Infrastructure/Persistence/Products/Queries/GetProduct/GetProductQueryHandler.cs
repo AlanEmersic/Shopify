@@ -18,6 +18,11 @@ internal sealed class GetProductQueryHandler : IRequestHandler<GetProductQuery, 
     {
         ProductDto? product = await productApiService.GetProductAsync(query.Id, cancellationToken);
 
+        if (product is null)
+        {
+            return Error.NotFound("Product not found");
+        }
+
         return product;
     }
 }
