@@ -1,9 +1,9 @@
 # Shopify
 
 # Overview
-Shopify is a simple application designed to view products and add them to cart with CRUD operations. <br>
+Shopify is a simple project designed to view products and add them to cart with CRUD operations. <br>
 It supports paginated views of products with filters and integrates with an ASP.NET Core Web API for backend operations. <br>
-This application uses clean architecture principles with domain driven design with the use of Entity Framework Core, MediatR for CQRS and asynchronous operations.
+Project uses clean architecture principles with domain driven design with the use of Entity Framework Core, MediatR for CQRS and asynchronous operations.
 
 # Project Structure
 ```bash
@@ -43,7 +43,7 @@ dotnet build
 - [Optional] Update the connection string in <b>appsettings.Development.json</b> in the <b>Shopify.Web</b> project.
 
 ## 4. Run the Application
-- To start make <b>Shopify.Web</b> as startup projects in Rider, Visual Studio or other IDE.
+- To start make <b>Shopify.Web</b> as startup project in Rider, Visual Studio or other IDE.
 - In <b>launchSettings.json</b> you can start Swagger or Web profile.
 - You can start them using the following commands:
 ```bash
@@ -68,17 +68,18 @@ EF Core migrations run automatically on Shopify.Web startup (DatabaseInitializer
 - JWT validation
 
 ### Products
-- Fetch all products from DummyJSON
+- Fetch all products
 - Fetch product details
-- Filter by category
 - Search
+- Filter
+- Sort
+- Paginated
 - In-memory caching for performance
 
 ### Cart
 - Add/remove items
 - Sync with backend
 - Zustand + backend persistence
-- Create order
 
 ### Favorites
 - Add/remove favorite products
