@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 import { useShallow } from "zustand/shallow";
 
 import { useCart, useClearCart, useRemoveCartItem } from "features";
-import { useMemo } from "react";
+import { useEffect } from "react";
 import { useCartStore } from "stores";
 
 function Cart() {
@@ -18,7 +18,7 @@ function Cart() {
   const { mutate: removeCartItem } = useRemoveCartItem();
   const { mutate: clearCartApi } = useClearCart();
 
-  useMemo(() => {
+  useEffect(() => {
     if (data) {
       setCart(data);
     }
