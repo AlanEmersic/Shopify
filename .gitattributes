@@ -1,2 +1,5 @@
-* text eol=crlf
-*.png binary
+* text=auto
+*.png binary -text
+*.jpg binary -text
+*.jpeg binary -text
+*.gif binary -text
