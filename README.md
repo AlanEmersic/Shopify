@@ -5,6 +5,8 @@ Shopify is a simple project designed to view products and add them to cart with 
 It supports paginated views of products with filters and integrates with an ASP.NET Core Web API for backend operations. <br>
 Project uses clean architecture principles with domain driven design with the use of Entity Framework Core, MediatR for CQRS and asynchronous operations.
 
+![image alt](https://github.com/AlanEmersic/Shopify/blob/c820ad3ad6aca9cd86f119210489628c84ac85d6/src/Shopify.Web/ClientApp/public/image.png)
+
 # Project Structure
 ```bash
 Shopify
