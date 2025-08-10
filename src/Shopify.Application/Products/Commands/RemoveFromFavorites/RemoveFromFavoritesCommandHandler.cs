@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
 using Shopify.Application.Common.Interfaces;
-using Shopify.Application.Products.Mappings;
 using Shopify.Application.Users.Services;
 using Shopify.Domain.Products;
 using Shopify.Domain.Products.Repositories;
