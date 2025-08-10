@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Events;
 using Shopify.Application.Products.Services;
 using Shopify.Application.Users.Services;
 using Shopify.Domain.Common.Interfaces;
